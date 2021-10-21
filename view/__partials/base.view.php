@@ -10,7 +10,6 @@
     <title> <?= $title ?></title>
 </head>
 <body>
-<?php require "menu.php" ?>
 <?= $html ?>
 </body>
 </html>

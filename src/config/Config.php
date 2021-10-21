@@ -1,6 +1,6 @@
 <?php
 
-namespace Amaur\App\Config;
+namespace Amaur\App\config;
 
 /**
  * Class config

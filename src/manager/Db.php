@@ -2,8 +2,8 @@
 
 namespace Amaur\App\manager;
 
-use Amaur\App\Config\Config;
-use Amaur\App\Config\ConfigDev;
+use Amaur\App\config\Config;
+use Amaur\App\config\ConfigDev;
 use PDO;
 use PDOException;
 
@@ -16,7 +16,7 @@ class Db {
      */
     public function __construct() {
 
-        if(file_exists(dirname(__FILE__) . '/../../ConfigDev.php')) {
+        if(file_exists(dirname(__FILE__) . '/../config/ConfigDev.php')) {
             [$host, $dbname, $username, $password] = ConfigDev::getConfig();
         }
         else {

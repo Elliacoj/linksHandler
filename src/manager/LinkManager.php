@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Amaur\App\Manager;
+namespace Amaur\App\manager;
 
 
 class LinkManager {

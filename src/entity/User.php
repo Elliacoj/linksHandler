@@ -1,6 +1,6 @@
 <?php
 
-namespace Amaur\App\Entity;
+namespace Amaur\App\entity;
 
 class User {
     private ?int $id;

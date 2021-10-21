@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Amaur\App\Entity;
+namespace Amaur\App\entity;
 
 
 class Link {

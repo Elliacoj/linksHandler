@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Amaur\App\Controller;
+namespace Amaur\App\controller;
 
 
 class Controller {

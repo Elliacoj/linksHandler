@@ -1,13 +1,13 @@
 <?php
 
-namespace Amaur\App\Controller;
+namespace Amaur\App\controller;
 
-class HomeController {
+class HomeController extends Controller {
 
     /**
      * Redirects into home page
      */
     public function home() {
-
+        self::render("homePage", "Accueil");
     }
 }

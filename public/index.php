@@ -1,13 +1,13 @@
 <?php
 
-use Amaur\App\Controller\HomeController;
+use Amaur\App\controller\HomeController;
 
 session_start();
 
 require "../vendor/autoload.php";
 
 if(isset($_GET['controller'])) {
-    $controller = "Amaur\\App\\Controller\\" . ucfirst(filter_var($_GET['controller'], FILTER_SANITIZE_STRING)) . "Controller";
+    $controller = "Amaur\\App\\controller\\" . ucfirst(filter_var($_GET['controller'], FILTER_SANITIZE_STRING)) . "Controller";
 
     if(class_exists($controller)) {
         $controller = new $controller();

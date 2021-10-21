@@ -1,11 +1,11 @@
 <?php
 
+namespace Amaur\App\Manager;
+
+use Amaur\App\Config\Config;
+use Amaur\App\Config\ConfigDev;
 
 class Db {
-    private string $host = "";
-    private string $dbname = "";
-    private string $username = "";
-    private string $password = "";
 
     private static ?PDO $dbInstance = null;
 
@@ -13,7 +13,15 @@ class Db {
      * Db constructor.
      */
     public function __construct() {
-        self::$dbInstance = new PDO("mysql:host=$this->host;dbname=$this->dbname;charset=utf8", $this->username, $this->password);
+
+        if(file_exists(dirname(__FILE__) . '/../../ConfigDev.php')) {
+            [$host, $dbname, $username, $password] = ConfigDev::getConfig();
+        }
+        else {
+            [$host, $dbname, $username, $password] = Config::getConfig();
+        }
+
+        self::$dbInstance = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
         self::$dbInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         self::$dbInstance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }

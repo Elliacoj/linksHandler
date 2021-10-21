@@ -9,9 +9,13 @@
 </div>
 <div id="homePage">
 <?php if(count($data) !== 0) {
-    foreach($data[0] as $link) { ?>
+    foreach($data[0] as $link) {
+        $a = '';
+        if(isset($_SESSION['id'])) {
+            $a = '<a href="index.php?controller=link&action=update&id=' . $link->getId() . '"><i class="far fa-edit"></i></a>';
+        }?>
     <div class="link">
-        <div class="imgLink"></div>
+        <div class="imgLink"><?= $a ?></div>
         <div class="nameLink"><a href="<?= $link->getHref()?>" target="<?= $link->getTarget()?>"><?= $link->getName()?></a></div>
     </div> <?php
     }

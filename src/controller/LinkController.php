@@ -29,4 +29,38 @@ class LinkController extends Controller {
 
         header("Location: /index.php?error=3");
     }
+
+    /**
+     * Redirects into update link page
+     */
+    public function update() {
+        $link = (new LinkManager())->search(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
+
+        self::render("update.link", "Modifier de lien", [$link]);
+    }
+
+    /**
+     * Update a link into link table
+     */
+    public function updateConfirm() {
+        $href = filter_var($_POST['hrefLink'], FILTER_SANITIZE_STRING);
+        $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+
+        $link = (new LinkManager())->search(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
+        $link
+            ->setHref($href)
+            ->setTitle($title)
+            ->setName($name);
+
+        (new LinkManager())->update($link);
+
+        header("Location: /index.php?error=4");
+    }
+
+    public function delete() {
+        (new LinkManager())->delete(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
+
+        header("Location: /index.php?error=5");
+    }
 }

@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+HTML {
+    font-size: 62.5%;
+}
+
+body {
+    width: 100%;
+    font-size: 3rem;
+}
+
+#menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+}
+
+#buttonProfile {
+    width: 20rem;
+    text-align: center;
+    margin-right: 2rem;
+}
+
+#buttonAdd {
+    width: 30rem;
+    text-align: center;
+    margin-left: 2rem;
+}
+
+#buttonAdd a {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+#menu i {
+    font-size: 5rem;
+}
+
+#homePage {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10rem auto;
+    justify-content: space-around;
+}
+
+.link {
+    width: 30rem;
+    height: 25rem;
+    margin: 1rem;
+
+}
+
+.imgLink {
+    width: 100%;
+    border-top: 3px solid darkgrey;
+    border-left: 3px solid darkgrey;
+    border-right: 3px solid darkgrey;
+    height: 70%;
+}
+
+.nameLink {
+    width: 100%;
+    border: 3px solid dodgerblue;
+    height: 30%;
+}

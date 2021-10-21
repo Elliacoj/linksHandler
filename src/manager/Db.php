@@ -4,6 +4,8 @@ namespace Amaur\App\Manager;
 
 use Amaur\App\Config\Config;
 use Amaur\App\Config\ConfigDev;
+use PDO;
+use PDOException;
 
 class Db {
 
@@ -21,9 +23,15 @@ class Db {
             [$host, $dbname, $username, $password] = Config::getConfig();
         }
 
-        self::$dbInstance = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-        self::$dbInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        self::$dbInstance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        try {
+            self::$dbInstance = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+            self::$dbInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$dbInstance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $exception) {
+            echo $exception->getMessage();
+        }
+
     }
 
     /**

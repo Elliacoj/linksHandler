@@ -6,6 +6,7 @@ namespace Amaur\App\controller;
 
 use Amaur\App\entity\Link;
 use Amaur\App\manager\LinkManager;
+use Muffeen\UrlStatus\UrlStatus;
 
 class LinkController extends Controller {
     /**
@@ -23,11 +24,18 @@ class LinkController extends Controller {
         $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
         $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
 
-        $link = new Link(null, $href, $title,"_blanc", $name);
+        $url_status = UrlStatus::get($href);
 
-        (new LinkManager())->add($link);
+        if($url_status->getStatusCode() === 200) {
+            $link = new Link(null, $href, $title,"_blanc", $name);
+            (new LinkManager())->add($link);
+            header("Location: /index.php?error=3");
+        }
+        else {
+            header("Location: /index.php?error=6");
+        }
 
-        header("Location: /index.php?error=3");
+
     }
 
     /**
@@ -47,15 +55,22 @@ class LinkController extends Controller {
         $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
         $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
 
-        $link = (new LinkManager())->search(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
-        $link
-            ->setHref($href)
-            ->setTitle($title)
-            ->setName($name);
+        $url_status = UrlStatus::get($href);
 
-        (new LinkManager())->update($link);
+        if($url_status->getStatusCode() === 200) {
+            $link = (new LinkManager())->search(filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT));
+            $link
+                ->setHref($href)
+                ->setTitle($title)
+                ->setName($name);
 
-        header("Location: /index.php?error=4");
+            (new LinkManager())->update($link);
+
+            header("Location: /index.php?error=4");
+        }
+        else {
+            header("Location: /index.php?error=6");
+        }
     }
 
     public function delete() {

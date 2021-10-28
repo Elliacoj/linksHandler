@@ -150,6 +150,11 @@ h3 {
     margin-top: 1rem;
 }
 
+i {
+    color: blue;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1000px){
     #loginDiv, #addLinkDiv, #updateLinkDiv, #createDiv {
         width: 50%;

@@ -87,7 +87,7 @@ a {
     align-items: center;
 }
 
-#loginDiv, #addLinkDiv, #updateLinkDiv, #CreateDiv {
+#loginDiv, #addLinkDiv, #updateLinkDiv, #createDiv {
     width: 30%;
     margin: 10rem auto 0 auto;
     border: 2px solid black;
@@ -96,19 +96,19 @@ a {
     box-shadow: 7px 7px 7px darkgrey;
 }
 
-#loginDiv div, #addLinkDiv div, #updateLinkDiv div, #CreateDiv div {
+#loginDiv div, #addLinkDiv div, #updateLinkDiv div, #createDiv div {
     width: 100%;
     margin: 1rem 2rem;
 }
 
-#loginDiv div input, #addLinkDiv div input, #updateLinkDiv div input, #CreateDiv div input {
+#loginDiv div input, #addLinkDiv div input, #updateLinkDiv div input, #createDiv div input {
     width: 40%;
     height: 30px;
     padding: 0 5px;
 }
 
-#buttonSubmit {
-    width: 30%;
+.buttonSubmit {
+    width: 25rem;
     padding: 5px;
     font-size: 2rem;
     margin: 10px auto;
@@ -117,7 +117,7 @@ a {
 
 .backButton {
     background-color: #e9e9ed;
-    width: 30% !important;
+    width: 35rem !important;
     border-radius: 5px;
     text-align: center;
     margin: 3rem auto !important;
@@ -147,4 +147,23 @@ a {
 
 h3 {
     text-align: center;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 1000px){
+    #loginDiv, #addLinkDiv, #updateLinkDiv, #createDiv {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 700px){
+    #loginDiv, #addLinkDiv, #updateLinkDiv, #createDiv {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 500px){
+    #loginDiv, #addLinkDiv, #updateLinkDiv, #createDiv {
+        width: 85%;
+    }
 }

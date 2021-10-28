@@ -87,21 +87,21 @@ a {
     align-items: center;
 }
 
-#loginDiv, #addLinkDiv, #updateLinkDiv {
+#loginDiv, #addLinkDiv, #updateLinkDiv, #CreateDiv {
     width: 30%;
-    margin: 30rem auto;
+    margin: 10rem auto 0 auto;
     border: 2px solid black;
     background-color: darkgrey;
     border-radius: 5px;
     box-shadow: 7px 7px 7px darkgrey;
 }
 
-#loginDiv div, #addLinkDiv div, #updateLinkDiv div {
+#loginDiv div, #addLinkDiv div, #updateLinkDiv div, #CreateDiv div {
     width: 100%;
     margin: 1rem 2rem;
 }
 
-#loginDiv div input, #addLinkDiv div input, #updateLinkDiv div input {
+#loginDiv div input, #addLinkDiv div input, #updateLinkDiv div input, #CreateDiv div input {
     width: 40%;
     height: 30px;
     padding: 0 5px;
@@ -120,14 +120,17 @@ a {
     width: 30% !important;
     border-radius: 5px;
     text-align: center;
-    margin: 1rem auto !important;
+    margin: 3rem auto !important;
     font-size: 2rem;
-    padding: 5px;
     font-weight: bold;
+    box-shadow: 7px 7px 7px darkgrey;
 }
 
 .backButton a {
     color: black;
+    width: 100%;
+    display: block;
+    padding: 5px;
 }
 
 .backButton:hover {
@@ -140,4 +143,8 @@ a {
 
 .imgLink a:hover, .nameLink a:hover  {
     color: black;
+}
+
+h3 {
+    text-align: center;
 }

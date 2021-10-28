@@ -7,9 +7,9 @@ namespace Amaur\App\config;
  * @package Amaur\App\config
  */
 class Config {
-    public const HOST = "";
-    public const DB_NAME = "";
-    public const USERNAME = "";
+    public const HOST = "localhost";
+    public const DB_NAME = "links";
+    public const USERNAME = "root";
     public const PASSWORD = "";
 
     public static function getConfig(): array {

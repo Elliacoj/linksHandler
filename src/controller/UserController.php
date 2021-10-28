@@ -4,6 +4,8 @@
 namespace Amaur\App\controller;
 
 
+use Amaur\App\entity\User;
+use Amaur\App\manager\Db;
 use Amaur\App\manager\UserManager;
 
 class UserController extends Controller {
@@ -25,12 +27,30 @@ class UserController extends Controller {
         $user = (new UserManager())->searchMail($mail);
         print_r($user);
         if($user !== null && password_verify($pass, $user->getPassword())) {
-            echo 1;
             $_SESSION['id'] = $user->getId();
             header("Location: /index.php?error=0");
         }
         else {
             header("Location: /index.php?error=1");
+        }
+    }
+
+    /**
+     * Create an user into user table
+     */
+    public function create() {
+        $firstname = filter_var($_POST['createFirstname'], FILTER_SANITIZE_STRING);
+        $lastname = filter_var($_POST['createLastname'], FILTER_SANITIZE_STRING);
+        $mail = filter_var($_POST['createMail'], FILTER_SANITIZE_EMAIL);
+        $pass = password_hash(filter_var($_POST['createPassword'], FILTER_SANITIZE_STRING), PASSWORD_BCRYPT);
+
+        $user = new User(null, $lastname, $firstname, $mail, $pass);
+        if((new UserManager())->add($user)) {
+            $_SESSION['id'] = Db::getInstance()->lastInsertId();
+            header("Location: /index.php?error=6");
+        }
+        else {
+            header("Location: /index.php?error=7");
         }
     }
 

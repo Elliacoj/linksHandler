@@ -14,6 +14,9 @@ switch ($request) {
     case "POST":
         echo json_encode(add(json_decode(file_get_contents('php://input'))));
         break;
+    case "SEARCH":
+        echo json_encode(search(json_decode(file_get_contents('php://input'))));
+        break;
 }
 
 /**
@@ -37,4 +40,10 @@ function add($data):bool {
     }
 
     return false;
+}
+
+function search($data): array {
+    $link = (new LinkManager())->search(filter_var($data->id, FILTER_SANITIZE_NUMBER_INT));
+
+    return ['name' => $link->getName(), "href" => $link->getHref(), "title" => $link->getTitle()];
 }

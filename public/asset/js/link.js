@@ -4,9 +4,11 @@ if(addLink) {
     addLink.addEventListener("click", modalWindows);
 }
 
-function modalWindows() {
-    addLink.removeEventListener("click", modalWindows);
-
+/**
+ * Creat a modal windows for add and update a link
+ * @param data
+ */
+function modalWindows(data) {
     let div = document.createElement("div");
     let pTitle = document.createElement("p");
     let name = document.createElement("div");
@@ -15,14 +17,32 @@ function modalWindows() {
     let buttonConfirm = document.createElement("button");
     let buttonBack = document.createElement("button");
 
+    if(data.target.dataset.id) {
+        pTitle.innerHTML = "Modifier un lien."
+        data.target.removeEventListener("click", modalWindows);
+        let xhr = new XMLHttpRequest();
+        xhr.responseType = "json";
+        xhr.open("SEARCH", "../../api/link/link.php");
+        let dataLink = {'id': data.target.dataset.id};
+        xhr.send(JSON.stringify(dataLink));
+        xhr.onload = function () {
+            let response = xhr.response;
+            name.innerHTML = "<label style='color: dodgerblue'>Nom:</label><input style='width: 20rem; margin-left: 2rem;' type='text' value='" + response['name'] + "'>";
+            title.innerHTML = "<label style='color: dodgerblue'>Titre:</label><input style='width: 20rem; margin-left: 2rem;' type='text' value='" + response['title'] + "'>";
+            href.innerHTML = "<label style='color: dodgerblue'>Lien:</label><input style='width: 20rem; margin-left: 2rem;' type='text' value='" + response['href'] + "'>";
+        }
+    }
+    else {
+        pTitle.innerHTML = "Creation de lien."
+        addLink.removeEventListener("click", modalWindows);
+        name.innerHTML = "<label style='color: dodgerblue'>Nom:</label><input style='width: 20rem; margin-left: 2rem;' type='text'>";
+        title.innerHTML = "<label style='color: dodgerblue'>Titre:</label><input style='width: 20rem; margin-left: 2rem;' type='text'>";
+        href.innerHTML = "<label style='color: dodgerblue'>Lien:</label><input style='width: 20rem; margin-left: 2rem;' type='text'>";
+    }
+
     div.id = "modalLink";
-    pTitle.innerHTML = "Creation de lien."
     buttonConfirm.innerHTML = "Confirmer";
     buttonBack.innerHTML = "Annuler";
-    name.innerHTML = "<label style='color: dodgerblue'>Nom:</label><input style='width: 20rem; margin-left: 2rem;' type='text'>";
-    title.innerHTML = "<label style='color: dodgerblue'>Titre:</label><input style='width: 20rem; margin-left: 2rem;' type='text'>";
-    href.innerHTML = "<label style='color: dodgerblue'>Lien:</label><input style='width: 20rem; margin-left: 2rem;' type='text'>";
-
     div.style.cssText = "position: absolute; background-color: #f0f0f0; width: 50%; border-radius: 5px; box-shadow: 5px 5px 5px darkgray; top: 20vh; left: 25vw;";
     pTitle.style.cssText = "width: 100%; text-align: center; padding-top: 10px;"
     buttonConfirm.style.cssText = "width: 20%; margin-left: 28.5%; margin-bottom: 10px;";
@@ -46,16 +66,21 @@ function modalWindows() {
 
     buttonBack.addEventListener("click", function () {
         addLink.addEventListener("click", modalWindows);
+        data.target.addEventListener("click", modalWindows);
         div.remove();
-    })
+    });
 }
 
-
+/**
+ * Api for create a link
+ * @param button
+ * @param action
+ * @param data
+ */
 function buttonCreateLink(button, action, data) {
     let xhr = new XMLHttpRequest();
     xhr.responseType = "json";
     xhr.open("POST", "../../api/link/link.php");
-
     xhr.send(JSON.stringify(data));
     xhr.onload = function () {
         let response = xhr.response;
@@ -73,3 +98,10 @@ function buttonCreateLink(button, action, data) {
     }
 }
 
+let updateLink = document.querySelectorAll(".buttonUpdate");
+
+if(updateLink) {
+    updateLink.forEach(function(e) {
+        e.addEventListener("click", modalWindows)
+    });
+}

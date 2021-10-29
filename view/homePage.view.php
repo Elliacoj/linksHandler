@@ -12,7 +12,7 @@
     foreach($data[0] as $link) {
         $a = '';
         if(isset($_SESSION['id'])) {
-            $a = '<a href="index.php?controller=link&action=update&id=' . $link->getId() . '"><i class="far fa-edit"></i></a>';
+            $a = '<i class="far fa-edit buttonUpdate" data-id="' . $link->getId() . '"></i>';
         }?>
     <div class="link">
         <div class="imgLink"><?= $a ?></div>

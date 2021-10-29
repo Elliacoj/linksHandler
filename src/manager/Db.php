@@ -16,7 +16,7 @@ class Db {
      */
     public function __construct() {
 
-        if(file_exists(dirname(__FILE__) . '/../config/ConfigDev.php') && $_SERVER['SERVER_NAME'] !== "localhost" ) {
+        if(file_exists(dirname(__FILE__) . '/../config/ConfigDev.php') && $_SERVER['SERVER_NAME'] !== "localhost") {
             [$host, $dbname, $username, $password] = ConfigDev::getConfig();
         }
         else {

@@ -13,5 +13,6 @@
 <?= $html ?>
 
 <script src="/asset/js/login.js"></script>
+<script src="/asset/js/link.js"></script>
 </body>
 </html>

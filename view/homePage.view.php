@@ -3,7 +3,7 @@
     <div id="buttonProfile"><a href="index.php?controller=user" title="Connexion"><i class="fas fa-sign-in-alt"></i></a></div> <?php
     }
     else { ?>
-    <div id="buttonAdd"><a href="index.php?controller=link"><i class="fas fa-plus-square"></i> Ajouter un lien</a></div>
+    <div id="buttonAdd"><i class="fas fa-plus-square"></i></div>
     <div id="buttonProfile"><a href="index.php?controller=user&action=logout" title="Déconnexion"><i class="fas fa-portrait"></i></a></div> <?php
     }?>
 </div>
@@ -12,7 +12,7 @@
     foreach($data[0] as $link) {
         $a = '';
         if(isset($_SESSION['id'])) {
-            $a = '<a href="index.php?controller=link&action=update&id=' . $link->getId() . '"><i class="far fa-edit"></i></a>';
+            $a = '<i class="far fa-edit buttonUpdate" data-id="' . $link->getId() . '"></i>';
         }?>
     <div class="link">
         <div class="imgLink"><?= $a ?></div>

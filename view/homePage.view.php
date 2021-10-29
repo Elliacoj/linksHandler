@@ -8,16 +8,16 @@
     }?>
 </div>
 <div id="homePage">
-<?php if(count($data) !== 0) {
+<?php /*if(count($data) !== 0) {
     foreach($data[0] as $link) {
         $a = '';
         if(isset($_SESSION['id'])) {
             $a = '<i class="far fa-edit buttonUpdate" data-id="' . $link->getId() . '"></i>';
-        }?>
+        }*/?><!--
     <div class="link">
-        <div class="imgLink"><?= $a ?></div>
-        <div class="nameLink"><a href="<?= $link->getHref()?>" target="<?= $link->getTarget()?>"><?= $link->getName()?></a></div>
-    </div> <?php
-    }
-} ?>
+        <div class="imgLink"><?/*= $a */?></div>
+        <div class="nameLink"><a href="<?/*= $link->getHref()*/?>" target="<?/*= $link->getTarget()*/?>"><?/*= $link->getName()*/?></a></div>
+    </div> --><?php
+/*    }
+} */?>
 </div>

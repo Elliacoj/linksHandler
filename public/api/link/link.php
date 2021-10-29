@@ -3,6 +3,7 @@
 use Amaur\App\entity\Link;
 use Amaur\App\manager\LinkManager;
 use Muffeen\UrlStatus\UrlStatus;
+session_start();
 
 require_once "../../../vendor/autoload.php";
 
@@ -28,7 +29,7 @@ function add($data):bool {
 
         $url_status = UrlStatus::get($href);
 
-        if($url_status->getStatusCode() == 200) {
+        if($url_status->getStatusCode() === 200) {
             $link = new Link(null, $href, $title,"_blanc", $name);
             (new LinkManager())->add($link);
             return true;

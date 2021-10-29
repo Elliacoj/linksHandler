@@ -55,20 +55,21 @@ function buttonCreateLink(button, action, data) {
     let xhr = new XMLHttpRequest();
     xhr.responseType = "json";
     xhr.open("POST", "../../api/link/link.php");
-    /*xhr.onload = function () {
+
+    xhr.send(JSON.stringify(data));
+    xhr.onload = function () {
         let response = xhr.response;
         let modalLink = document.getElementById("modalLink");
 
         if(response === false) {
             let p = document.createElement("p");
             p.innerHTML = "Le lien n'est pas valide";
+            p.style.cssText = "text-align: center; color: red;";
             modalLink.appendChild(p);
         }
         else {
             modalLink.remove();
         }
-
-    }*/
-    xhr.send(JSON.stringify(data));
+    }
 }
 

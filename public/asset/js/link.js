@@ -60,8 +60,15 @@ function modalWindows(data) {
     document.body.appendChild(div);
 
     buttonConfirm.addEventListener("click", function () {
-        let data = {'href': href.lastChild.value, 'title': title.lastChild.value, 'name': name.lastChild.value}
-        buttonCreateLink(addLink, "delete", data);
+
+        if(data.target.dataset.id) {
+            let dataSend = {'href': href.lastChild.value, 'title': title.lastChild.value, 'name': name.lastChild.value, "id": data.target.dataset.id}
+            buttonCreateLink(addLink, "PUT", dataSend);
+        }
+        else {
+            let dataSend = {'href': href.lastChild.value, 'title': title.lastChild.value, 'name': name.lastChild.value}
+            buttonCreateLink(addLink, "POST", dataSend);
+        }
     });
 
     buttonBack.addEventListener("click", function () {
@@ -80,7 +87,7 @@ function modalWindows(data) {
 function buttonCreateLink(button, action, data) {
     let xhr = new XMLHttpRequest();
     xhr.responseType = "json";
-    xhr.open("POST", "../../api/link/link.php");
+    xhr.open(action, "../../api/link/link.php");
     xhr.send(JSON.stringify(data));
     xhr.onload = function () {
         let response = xhr.response;

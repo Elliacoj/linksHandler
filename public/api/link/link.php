@@ -20,6 +20,12 @@ switch ($request) {
     case "PUT":
         echo json_encode(update(json_decode(file_get_contents('php://input'))));
         break;
+    case "GET":
+        echo json_encode(get());
+        break;
+    case "DELETE":
+        delete(json_decode(file_get_contents('php://input')));
+        break;
 }
 
 /**
@@ -77,4 +83,26 @@ function update($data):bool {
         }
     }
     return false;
+}
+
+/**
+ * Return all data of link table
+ * @return array
+ */
+function get(): array {
+    $allLinks = (new LinkManager())->get();
+    $links = [];
+    foreach($allLinks as $link) {
+        $links[] = ["id" => $link->getId(), "href" => $link->getHref(), "title" => $link->getTitle(), "name" => $link->getName()];
+    }
+    return $links;
+}
+
+/**
+ * Delete a link into link table
+ * @param $data
+ * @return bool
+ */
+function delete($data): bool {
+    return (new LinkManager())->delete(filter_var($data->id), FILTER_SANITIZE_NUMBER_INT);
 }

@@ -17,15 +17,17 @@ class LinkManager {
         $title = $link->getTitle();
         $target = $link->getTarget();
         $name = $link->getName();
+        $userFk = $link->getUserFk()->getId();
 
         $stmt = Db::getInstance()->prepare(
-            "INSERT INTO prefix_link(href, title, target, name) 
-                    VALUES(:href, :title, :target, :name)"
+            "INSERT INTO prefix_link(href, title, target, name, user_fk) 
+                    VALUES(:href, :title, :target, :name, :userFk)"
         );
         $stmt->bindValue("href", $href);
         $stmt->bindValue("title", $title);
         $stmt->bindValue("target", $target);
         $stmt->bindValue("name", $name);
+        $stmt->bindValue("userFk", $userFk);
 
         if($stmt->execute()) {
             return true;
@@ -35,15 +37,16 @@ class LinkManager {
 
     /**
      * Get all links
+     * @param $userFk
      * @return array
      */
-    public function get(): array {
+    public function get($userFk): array {
         $array = [];
-        $stmt = Db::getInstance()->prepare("SELECT * FROM prefix_link");
+        $stmt = Db::getInstance()->prepare("SELECT * FROM prefix_link WHERE user_fk = $userFk");
 
         if($stmt->execute() && $result = $stmt->fetchAll()) {
             foreach($result as $link) {
-                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name']);
+                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->searchMail($link['user_fk']));
             }
         }
         return $array;
@@ -60,7 +63,7 @@ class LinkManager {
         $link = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name']);
+                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($link['user_fk']));
         }
         return $link;
     }

@@ -21,7 +21,7 @@ switch ($request) {
         echo json_encode(update(json_decode(file_get_contents('php://input'))));
         break;
     case "GET":
-        echo json_encode(get());
+        echo json_encode(getLink());
         break;
     case "DELETE":
         delete(json_decode(file_get_contents('php://input')));
@@ -89,8 +89,9 @@ function update($data):bool {
  * Return all data of link table
  * @return array
  */
-function get(): array {
-    $allLinks = (new LinkManager())->get();
+function getLink(): array {
+    echo 1;
+    $allLinks = (new LinkManager())->get($_SESSION['id']);
     $links = [];
     foreach($allLinks as $link) {
         $links[] = ["id" => $link->getId(), "href" => $link->getHref(), "title" => $link->getTitle(), "name" => $link->getName()];

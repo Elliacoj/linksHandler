@@ -15,5 +15,6 @@
 <script src="/asset/js/login.js"></script>
 <script src="/asset/js/link.js"></script>
 <script src="/asset/js/mail.js"></script>
+<script src="/asset/js/stat.js"></script>
 </body>
 </html>

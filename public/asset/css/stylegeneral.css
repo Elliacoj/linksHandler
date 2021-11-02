@@ -19,10 +19,13 @@ body {
     justify-content: space-between;
     margin-top: 3rem;
 }
+#buttonDisco {
+    margin-right: 4rem;
+}
 
 #buttonProfile {
     text-align: center;
-    margin-right: 4rem;
+    margin: 0 auto;
 }
 
 #buttonAdd {

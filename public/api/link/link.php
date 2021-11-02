@@ -6,8 +6,6 @@ use Amaur\App\manager\LinkManager;
 use Amaur\App\manager\UserManager;
 use Muffeen\UrlStatus\UrlStatus;
 
-
-
 session_start();
 
 require_once "../../../vendor/autoload.php";

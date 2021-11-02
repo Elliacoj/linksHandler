@@ -1,9 +1,13 @@
 <?php
 
 use Amaur\App\entity\Link;
+
 use Amaur\App\manager\LinkManager;
 use Amaur\App\manager\UserManager;
 use Muffeen\UrlStatus\UrlStatus;
+
+
+
 session_start();
 
 require_once "../../../vendor/autoload.php";
@@ -43,8 +47,11 @@ function add($data):bool {
         $url_status = UrlStatus::get($href);
 
         if($url_status->getStatusCode() === 200) {
-            $link = new Link(null, $href, $title,"_blanc", $name, $user);
+            $screen = createScreen($href);
+            $link = new Link(null, $href, $title,"_blanc", $name, $user, $screen);
             (new LinkManager())->add($link);
+
+
             return true;
         }
     }
@@ -74,11 +81,13 @@ function update($data):bool {
         $name = filter_var($data->name, FILTER_SANITIZE_STRING);
         $title = filter_var($data->title, FILTER_SANITIZE_STRING);
         $id = filter_var($data->id);
+        $user = (new UserManager())->search($_SESSION['id']);
 
         $url_status = UrlStatus::get($href);
 
         if($url_status->getStatusCode() === 200 && (new LinkManager())->check($id, $_SESSION['id']) === true) {
-            $link = new Link($id, $href, $title,"_blanc", $name);
+            $screen = createScreen($href);
+            $link = new Link($id, $href, $title,"_blanc", $name, $user, $screen);
             (new LinkManager())->update($link);
             return true;
         }
@@ -97,7 +106,7 @@ function getLink(): array {
     $allLinks = (new LinkManager())->get($_SESSION['id']);
     $links = [];
     foreach($allLinks as $link) {
-        $links[] = ["id" => $link->getId(), "href" => $link->getHref(), "title" => $link->getTitle(), "name" => $link->getName()];
+        $links[] = ["id" => $link->getId(), "href" => $link->getHref(), "title" => $link->getTitle(), "name" => $link->getName(), "img" => $link->getImg()];
     }
     return $links;
 }
@@ -113,4 +122,22 @@ function delete($data): bool {
         return (new LinkManager())->delete($id);
     }
     return false;
+}
+
+function createScreen($url, $options = array()): string {
+    $embed_key = 'JY8tfHX3E5bxcHRbxNej08Sm'; # replace it with you Embed API key
+    $secret = 'DQSlSNSLOXGnyTVu9yRAufrr'; # replace it with your Secret
+
+    $query = 'url=' . urlencode($url);
+
+    foreach($options as $key => $value) {
+        $query .= '&' . trim($key) . '=' . urlencode(trim($value));
+
+    }
+
+
+    $token = md5($query . $secret);
+
+
+    return "https://api.thumbalizr.com/api/v1/embed/$embed_key/$token/?$query";
 }

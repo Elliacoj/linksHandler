@@ -49,4 +49,20 @@ class UserManager {
         }
         return $user;
     }
+
+    /**
+     * Return an user or null
+     * @param $id
+     * @return User|null
+     */
+    public function search($id):?User {
+        $stmt = Db::getInstance()->prepare("SELECT * FROM prefix_user WHERE id = :id");
+        $stmt->bindValue('id', $id);
+        $user = null;
+
+        if($stmt->execute() && $result = $stmt->fetch()) {
+            $user = new User($result['id'], $result['nom'], $result['prenom'], $result['mail'], $result['pass']);
+        }
+        return $user;
+    }
 }

@@ -49,6 +49,21 @@ function modalWindows($data) {
         $div.appendChild($name);
         $div.appendChild($title);
         $div.appendChild($href);
+
+        $buttonConfirm.addEventListener("click", function () {
+            if($data.target.dataset.id) {
+                let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value, "id": $data.target.dataset.id}
+                buttonLink( "PUT", $dataSend);
+            }
+            else {
+                let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value}
+                buttonLink("POST", $dataSend);
+            }
+            setTimeout(function () {
+                getLinks();
+            }, 500)
+
+        });
     }
 
     if($data.target.dataset.delete) {
@@ -69,24 +84,19 @@ function modalWindows($data) {
     $div.appendChild($buttonBack);
     document.body.appendChild($div);
 
-    $buttonConfirm.addEventListener("click", function () {
-        if($data.target.dataset.id) {
-            let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value, "id": $data.target.dataset.id}
-            buttonLink( "PUT", $dataSend);
-        }
-        else if($data.target.dataset.delete) {
-            let $dataSend = {"id": $data.target.dataset.delete}
-            buttonLink("DELETE", $dataSend);
-        }
-        else {
-            let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value}
-            buttonLink("POST", $dataSend);
-        }
-        setTimeout(function () {
-            getLinks();
-        }, 500)
+    if($data.target.dataset.delete) {
+        $buttonConfirm.addEventListener("click", function () {
+            if($data.target.dataset.delete) {
+                let $dataSend = {"id": $data.target.dataset.delete}
+                buttonLink("DELETE", $dataSend);
+            }
 
-    });
+            setTimeout(function () {
+                getLinks();
+            }, 500)
+
+        });
+    }
 
     $buttonBack.addEventListener("click", function () {
         $addLink.addEventListener("click", modalWindows);
@@ -139,39 +149,40 @@ function getLinks() {
     $xhr.send();
     $xhr.onload = function () {
         let $response = $xhr.response;
-        $response.forEach(function ($e) {
-            let $divContainer = document.createElement("div");
-            let $divImg = document.createElement("div");
-            let $divName = document.createElement("div");
-            let $a = document.createElement("a");
-            let $iUpdate = document.createElement("i");
-            let $iDelete = document.createElement("i");
+        if($response !== null) {
+            $response.forEach(function ($e) {
+                let $divContainer = document.createElement("div");
+                let $divImg = document.createElement("div");
+                let $divName = document.createElement("div");
+                let $a = document.createElement("a");
+                let $iUpdate = document.createElement("i");
+                let $iDelete = document.createElement("i");
 
-            $divContainer.className = "link";
-            $divImg.className = "imgLink";
-            $divName.className = "nameLink";
+                $divContainer.className = "link";
+                $divImg.className = "imgLink";
+                $divName.className = "nameLink";
 
-            $a.href = $e['href'];
-            $a.target = "_blanc";
-            $a.title = $e['title'];
-            $a.innerHTML = $e['name'];
+                $a.href = $e['href'];
+                $a.target = "_blanc";
+                $a.title = $e['title'];
+                $a.innerHTML = $e['name'];
 
-            $iUpdate.className = "far fa-edit";
-            $iUpdate.dataset.id = $e['id'];
-            $iDelete.className = "fas fa-ban";
-            $iDelete.dataset.delete = $e['id'];
-            $iDelete.style.cssText = "float: right; color: red;"
+                $iUpdate.className = "far fa-edit";
+                $iUpdate.dataset.id = $e['id'];
+                $iDelete.className = "fas fa-ban";
+                $iDelete.dataset.delete = $e['id'];
+                $iDelete.style.cssText = "float: right; color: red;"
 
-            $divContainer.appendChild($divImg);
-            $divContainer.appendChild($divName);
-            $divImg.appendChild($iUpdate);
-            $divImg.appendChild($iDelete)
-            $divName.appendChild($a);
-            $homePage.appendChild($divContainer);
+                $divContainer.appendChild($divImg);
+                $divContainer.appendChild($divName);
+                $divImg.appendChild($iUpdate);
+                $divImg.appendChild($iDelete)
+                $divName.appendChild($a);
+                $homePage.appendChild($divContainer);
 
-            $iUpdate.addEventListener("click", modalWindows);
-            $iDelete.addEventListener("click", modalWindows);
-
-        })
+                $iUpdate.addEventListener("click", modalWindows);
+                $iDelete.addEventListener("click", modalWindows);
+            });
+        }
     }
 }

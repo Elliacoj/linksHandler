@@ -82,6 +82,9 @@ function update($data):bool {
             (new LinkManager())->update($link);
             return true;
         }
+        else {
+            return false;
+        }
     }
     return false;
 }

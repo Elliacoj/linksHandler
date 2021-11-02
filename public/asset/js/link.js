@@ -124,7 +124,7 @@ function buttonLink($action, $data) {
             let $p = document.createElement("p");
             $p.innerHTML = "Le lien n'est pas valide";
             $p.style.cssText = "text-align: center; color: red;";
-            $modalLink.appendChild(p);
+            $modalLink.appendChild($p);
         }
         else {
             $modalLink.remove();

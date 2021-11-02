@@ -3,7 +3,6 @@
 
 namespace Amaur\App\entity;
 
-
 class Link {
     private ?int $id;
     private ?string $href;
@@ -11,6 +10,7 @@ class Link {
     private ?string $target;
     private ?string $name;
     private ?User $userFk;
+    private ?string $img;
 
     /**
      * Link constructor.
@@ -19,8 +19,9 @@ class Link {
      * @param string|null $title
      * @param string|null $target
      * @param string|null $name
+     * @param string|null $img
      */
-    public function __construct(int $id = null, string $href = null, string $title = null, string $target = null, string $name = null, User $userFk = null)
+    public function __construct(int $id = null, string $href = null, string $title = null, string $target = null, string $name = null, User $userFk = null, string $img = null)
     {
         $this->id = $id;
         $this->href = $href;
@@ -28,6 +29,7 @@ class Link {
         $this->target = $target;
         $this->name = $name;
         $this->userFk = $userFk;
+        $this->img = $img;
     }
 
     /**
@@ -136,6 +138,25 @@ class Link {
     public function setUserFk(?User $userFk): Link
     {
         $this->userFk = $userFk;
+        return $this;
+    }
+
+    /**
+     * Return the img of Link
+     * @return string|null
+     */
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    /**
+     * Set the img of Link
+     * @param string|null $img
+     */
+    public function setImg(?string $img): Link
+    {
+        $this->img = $img;
         return $this;
     }
 }

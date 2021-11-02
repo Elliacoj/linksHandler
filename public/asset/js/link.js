@@ -161,6 +161,8 @@ function getLinks() {
                 $divContainer.className = "link";
                 $divImg.className = "imgLink";
                 $divName.className = "nameLink";
+                console.log($e['img']);
+                $divImg.style.backgroundImage = "url(" + $e['img'] + ")";
 
                 $a.href = $e['href'];
                 $a.target = "_blanc";

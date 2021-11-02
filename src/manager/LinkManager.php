@@ -18,16 +18,18 @@ class LinkManager {
         $target = $link->getTarget();
         $name = $link->getName();
         $userFk = $link->getUserFk()->getId();
+        $img = $link->getImg();
 
         $stmt = Db::getInstance()->prepare(
-            "INSERT INTO prefix_link(href, title, target, name, user_fk) 
-                    VALUES(:href, :title, :target, :name, :userFk)"
+            "INSERT INTO prefix_link(href, title, target, name, user_fk, img) 
+                    VALUES(:href, :title, :target, :name, :userFk, :img)"
         );
         $stmt->bindValue("href", $href);
         $stmt->bindValue("title", $title);
         $stmt->bindValue("target", $target);
         $stmt->bindValue("name", $name);
         $stmt->bindValue("userFk", $userFk);
+        $stmt->bindValue("img", $img);
 
         if($stmt->execute()) {
             return true;
@@ -46,7 +48,7 @@ class LinkManager {
 
         if($stmt->execute() && $result = $stmt->fetchAll()) {
             foreach($result as $link) {
-                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->searchMail($link['user_fk']));
+                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->searchMail($link['user_fk']), $link['img']);
             }
         }
         return $array;
@@ -63,7 +65,7 @@ class LinkManager {
         $link = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($result['user_fk']));
+                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($result['user_fk']), $result['img']);
         }
         return $link;
     }
@@ -97,13 +99,19 @@ class LinkManager {
         $title = $link->getTitle();
         $target = $link->getTarget();
         $name = $link->getName();
+        $img = $link->getImg();
 
-        $stmt = Db::getInstance()->prepare("UPDATE  prefix_link SET href = :href, title = :title, target = :target, name = :name WHERE id = :id");
+        $stmt = Db::getInstance()->prepare(
+            "UPDATE  prefix_link 
+                    SET href = :href, title = :title, target = :target, name = :name, img = :img 
+                    WHERE id = :id"
+        );
         $stmt->bindValue("id", $id);
         $stmt->bindValue("href", $href);
         $stmt->bindValue("title", $title);
         $stmt->bindValue("target", $target);
         $stmt->bindValue("name", $name);
+        $stmt->bindValue("img", $img);
 
         if($stmt->execute()) {
             return true;

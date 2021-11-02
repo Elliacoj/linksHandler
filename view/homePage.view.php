@@ -16,4 +16,3 @@ if(isset($_SESSION['id'])) { ?>
     <input type="button" id="sendContact" value="Envoyer">
 </div> <?php
 }
-?>

@@ -2,6 +2,7 @@
 
 use Amaur\App\entity\Link;
 use Amaur\App\manager\LinkManager;
+use Amaur\App\manager\UserManager;
 use Muffeen\UrlStatus\UrlStatus;
 session_start();
 
@@ -24,7 +25,7 @@ switch ($request) {
         echo json_encode(getLink());
         break;
     case "DELETE":
-        delete(json_decode(file_get_contents('php://input')));
+        echo delete(json_decode(file_get_contents('php://input')));
         break;
 }
 
@@ -38,11 +39,11 @@ function add($data):bool {
         $href = filter_var($data->href, FILTER_SANITIZE_URL);
         $name = filter_var($data->name, FILTER_SANITIZE_STRING);
         $title = filter_var($data->title, FILTER_SANITIZE_STRING);
-
+        $user = (new UserManager())->search($_SESSION['id']);
         $url_status = UrlStatus::get($href);
 
         if($url_status->getStatusCode() === 200) {
-            $link = new Link(null, $href, $title,"_blanc", $name);
+            $link = new Link(null, $href, $title,"_blanc", $name, $user);
             (new LinkManager())->add($link);
             return true;
         }
@@ -76,7 +77,7 @@ function update($data):bool {
 
         $url_status = UrlStatus::get($href);
 
-        if($url_status->getStatusCode() === 200) {
+        if($url_status->getStatusCode() === 200 && (new LinkManager())->check($id, $_SESSION['id']) === true) {
             $link = new Link($id, $href, $title,"_blanc", $name);
             (new LinkManager())->update($link);
             return true;
@@ -86,11 +87,10 @@ function update($data):bool {
 }
 
 /**
- * Return all data of link table
+ * Return all data's user of link table
  * @return array
  */
 function getLink(): array {
-    echo 1;
     $allLinks = (new LinkManager())->get($_SESSION['id']);
     $links = [];
     foreach($allLinks as $link) {
@@ -105,5 +105,9 @@ function getLink(): array {
  * @return bool
  */
 function delete($data): bool {
-    return (new LinkManager())->delete(filter_var($data->id), FILTER_SANITIZE_NUMBER_INT);
+    $id = filter_var($data->id, FILTER_SANITIZE_NUMBER_INT);
+    if((new LinkManager())->check($id, $_SESSION['id'])) {
+        return (new LinkManager())->delete($id);
+    }
+    return false;
 }

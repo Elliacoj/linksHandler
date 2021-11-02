@@ -63,9 +63,26 @@ class LinkManager {
         $link = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($link['user_fk']));
+                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($result['user_fk']));
         }
         return $link;
+    }
+
+    /**
+     * Get all links
+     * @param $id
+     * @param $userFk
+     * @return bool
+     */
+    public function check($id, $userFk): bool {
+        $stmt = Db::getInstance()->prepare("SELECT * FROM prefix_link WHERE id = :id AND user_fk = :userFk");
+        $stmt->bindValue("id", $id);
+        $stmt->bindValue("userFk", $userFk);
+
+        if($stmt->execute() && $result = $stmt->fetch()) {
+            return true;
+        }
+        return false;
     }
 
     /**

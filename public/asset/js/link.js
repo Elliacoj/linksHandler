@@ -49,6 +49,21 @@ function modalWindows($data) {
         $div.appendChild($name);
         $div.appendChild($title);
         $div.appendChild($href);
+
+        $buttonConfirm.addEventListener("click", function () {
+            if($data.target.dataset.id) {
+                let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value, "id": $data.target.dataset.id}
+                buttonLink( "PUT", $dataSend);
+            }
+            else {
+                let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value}
+                buttonLink("POST", $dataSend);
+            }
+            setTimeout(function () {
+                getLinks();
+            }, 500)
+
+        });
     }
 
     if($data.target.dataset.delete) {
@@ -69,24 +84,19 @@ function modalWindows($data) {
     $div.appendChild($buttonBack);
     document.body.appendChild($div);
 
-    $buttonConfirm.addEventListener("click", function () {
-        if($data.target.dataset.id) {
-            let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value, "id": $data.target.dataset.id}
-            buttonLink( "PUT", $dataSend);
-        }
-        else if($data.target.dataset.delete) {
-            let $dataSend = {"id": $data.target.dataset.delete}
-            buttonLink("DELETE", $dataSend);
-        }
-        else {
-            let $dataSend = {'href': $href.lastChild.value, 'title': $title.lastChild.value, 'name': $name.lastChild.value}
-            buttonLink("POST", $dataSend);
-        }
-        setTimeout(function () {
-            getLinks();
-        }, 500)
+    if($data.target.dataset.delete) {
+        $buttonConfirm.addEventListener("click", function () {
+            if($data.target.dataset.delete) {
+                let $dataSend = {"id": $data.target.dataset.delete}
+                buttonLink("DELETE", $dataSend);
+            }
 
-    });
+            setTimeout(function () {
+                getLinks();
+            }, 500)
+
+        });
+    }
 
     $buttonBack.addEventListener("click", function () {
         $addLink.addEventListener("click", modalWindows);

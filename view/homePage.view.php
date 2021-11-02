@@ -13,6 +13,7 @@ if(isset($_SESSION['id'])) { ?>
 <div id="contact">
     <h2>Contactez nous ici</h2>
     <textarea name="contactText" id="contactText" cols="30" rows="10"></textarea>
+    <input type="button" id="sendContact" value="Envoyer">
 </div> <?php
 }
 ?>

@@ -166,7 +166,7 @@ i:hover {
 #contact textarea {
     width: 60%;
     display: block;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto 1rem auto;
     padding: 1rem;
     font-size: 2rem;
 }
@@ -176,6 +176,15 @@ i:hover {
     font-size: 5rem;
     font-style: italic;
     margin-bottom: 3rem;
+}
+
+#contact input {
+    display: block;
+    width: 60%;
+    margin: 0 auto 1rem auto;
+    padding: 1rem 0;
+    font-size: 2rem;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1000px){

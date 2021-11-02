@@ -23,7 +23,14 @@ switch ($request) {
         echo json_encode(search(json_decode(file_get_contents('php://input'))));
         break;
     case "PUT":
-        echo json_encode(update(json_decode(file_get_contents('php://input'))));
+        $data = json_decode(file_get_contents('php://input'));
+        if(isset($data->href, $data->title)) {
+            echo json_encode(update($data));
+        }
+        else {
+            echo json_encode(updateClick($data));
+        }
+
         break;
     case "GET":
         echo json_encode(getLink());
@@ -140,4 +147,17 @@ function createScreen($url, $options = array()): string {
 
 
     return "https://api.thumbalizr.com/api/v1/embed/$embed_key/$token/?$query";
+}
+
+function updateClick($data):bool {
+    $id = $data->id;
+    if(isset($_SESSION['id']) && (new LinkManager())->check($id, $_SESSION['id']) === true) {
+        $link = (new LinkManager())->search($id);
+        $link->setClick($link->getClick() + 1);
+        if((new LinkManager())->updateClick($link)) {
+            return true;
+        }
+
+    }
+    return false;
 }

@@ -65,7 +65,7 @@ class LinkManager {
         $link = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($result['user_fk']), $result['img']);
+                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($result['user_fk']), $result['img'], $result['click']);
         }
         return $link;
     }
@@ -112,6 +112,30 @@ class LinkManager {
         $stmt->bindValue("target", $target);
         $stmt->bindValue("name", $name);
         $stmt->bindValue("img", $img);
+
+        if($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Update a link into link table
+     * @param Link $link
+     * @return bool
+     */
+    public function updateClick(Link $link): bool
+    {
+        $id = $link->getId();
+        $click = $link->getClick();
+
+        $stmt = Db::getInstance()->prepare(
+            "UPDATE  prefix_link 
+                    SET click = :click 
+                    WHERE id = :id"
+        );
+        $stmt->bindValue("id", $id);
+        $stmt->bindValue("click", $click);
 
         if($stmt->execute()) {
             return true;

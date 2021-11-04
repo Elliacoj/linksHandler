@@ -45,7 +45,7 @@ class UserManager {
         $user = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-            $user = new User($result['id'], $result['nom'], $result['prenom'], $result['mail'], $result['pass']);
+            $user = new User($result['id'], $result['nom'], $result['prenom'], $result['mail'], $result['pass'], $result['role']);
         }
         return $user;
     }
@@ -61,7 +61,7 @@ class UserManager {
         $user = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-            $user = new User($result['id'], $result['nom'], $result['prenom'], $result['mail'], $result['pass']);
+            $user = new User($result['id'], $result['nom'], $result['prenom'], $result['mail'], $result['pass'], $result['role']);
         }
         return $user;
     }

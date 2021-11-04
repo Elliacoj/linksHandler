@@ -1,3 +1,5 @@
+<h1>Links handler</h1>
+<h2>Page de connection/création de compte</h2>
 <div id="loginDiv">
     <h3>Login</h3>
     <form action="index.php?controller=user&action=login" method="POST">
@@ -43,5 +45,3 @@
         <input type="submit" class="buttonSubmit" value="Se connecter" id="confirmCreate">
     </form>
 </div>
-
-<div class="backButton"><a href="index.php">Retour</a></div>

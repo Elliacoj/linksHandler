@@ -38,7 +38,7 @@ class LinkManager {
     }
 
     /**
-     * Get all links
+     * Get all links of user fk
      * @param $userFk
      * @return array
      */
@@ -48,7 +48,23 @@ class LinkManager {
 
         if($stmt->execute() && $result = $stmt->fetchAll()) {
             foreach($result as $link) {
-                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->searchMail($link['user_fk']), $link['img']);
+                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->search($link['user_fk']), $link['img'], $link['click']);
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * Get all links
+     * @return array
+     */
+    public function getAll(): array {
+        $array = [];
+        $stmt = Db::getInstance()->prepare("SELECT * FROM prefix_link");
+
+        if($stmt->execute() && $result = $stmt->fetchAll()) {
+            foreach($result as $link) {
+                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->search($link['user_fk']), $link['img'], $link['click']);
             }
         }
         return $array;
@@ -65,7 +81,7 @@ class LinkManager {
         $link = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($result['user_fk']), $result['img']);
+                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->search($result['user_fk']), $result['img'], $result['click']);
         }
         return $link;
     }
@@ -112,6 +128,30 @@ class LinkManager {
         $stmt->bindValue("target", $target);
         $stmt->bindValue("name", $name);
         $stmt->bindValue("img", $img);
+
+        if($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Update a link into link table
+     * @param Link $link
+     * @return bool
+     */
+    public function updateClick(Link $link): bool
+    {
+        $id = $link->getId();
+        $click = $link->getClick();
+
+        $stmt = Db::getInstance()->prepare(
+            "UPDATE  prefix_link 
+                    SET click = :click 
+                    WHERE id = :id"
+        );
+        $stmt->bindValue("id", $id);
+        $stmt->bindValue("click", $click);
 
         if($stmt->execute()) {
             return true;

@@ -13,6 +13,7 @@ function modalWindows($data) {
     let $pTitle = document.createElement("p");
     let $buttonConfirm = document.createElement("button");
     let $buttonBack = document.createElement("button");
+    $div.appendChild($pTitle);
 
     if(!$data.target.dataset.delete) {
         let $name = document.createElement("div");
@@ -79,7 +80,6 @@ function modalWindows($data) {
     $buttonConfirm.style.cssText = "width: 20%; margin-left: 28.5%; margin-bottom: 10px;";
     $buttonBack.style.cssText = "width: 20%; margin-left: 5%; margin-bottom: 10px;";
 
-    $div.appendChild($pTitle);
     $div.appendChild($buttonConfirm);
     $div.appendChild($buttonBack);
     document.body.appendChild($div);
@@ -102,7 +102,6 @@ function modalWindows($data) {
         $addLink.addEventListener("click", modalWindows);
         $data.target.addEventListener("click", modalWindows);
         $div.remove();
-        getLinks();
     });
 }
 
@@ -161,8 +160,8 @@ function getLinks() {
                 $divContainer.className = "link";
                 $divImg.className = "imgLink";
                 $divName.className = "nameLink";
-                console.log($e['img']);
                 $divImg.style.backgroundImage = "url(" + $e['img'] + ")";
+                $a.className = "clickNumber";
 
                 $a.href = $e['href'];
                 $a.target = "_blanc";
@@ -184,7 +183,22 @@ function getLinks() {
 
                 $iUpdate.addEventListener("click", modalWindows);
                 $iDelete.addEventListener("click", modalWindows);
+                $a.addEventListener("click", function () {
+                    clickNumber($e['id']);
+                })
             });
         }
     }
+
 }
+
+/**
+ * Counting click of link
+ */
+function clickNumber(idLink) {
+    let $xhr = new XMLHttpRequest();
+    $xhr.responseType = "json";
+    $xhr.open("PUT", "../../api/link/link.php");
+    $xhr.send(JSON.stringify({id: idLink}));
+}
+

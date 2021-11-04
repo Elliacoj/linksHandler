@@ -11,6 +11,7 @@ HTML {
 body {
     width: 100%;
     font-size: 3rem;
+    background-color: #e2ded0;
 }
 
 #menu {
@@ -20,9 +21,30 @@ body {
     margin-top: 3rem;
 }
 
+h1 {
+    font-size: 5rem;
+    text-decoration-line: underline;
+    margin-bottom: 5rem;
+}
+
+h1, h2 {
+    text-align: center;
+    font-style: italic;
+    margin-top: 2rem;
+    color: #151562;
+}
+
+h2 {
+    font-size: 4rem;
+}
+
+#buttonDisco {
+    margin-right: 4rem;
+}
+
 #buttonProfile {
     text-align: center;
-    margin-right: 4rem;
+    margin: 0 auto;
 }
 
 #buttonAdd {
@@ -86,11 +108,12 @@ a {
 
 #loginDiv, #addLinkDiv, #updateLinkDiv, #createDiv {
     width: 30%;
-    margin: 10rem auto 0 auto;
+    margin: 7rem auto 0 auto;
     border: 2px solid black;
-    background-color: darkgrey;
+    background-color: #647c90;
     border-radius: 5px;
     box-shadow: 7px 7px 7px darkgrey;
+    color: #121212;
 }
 
 #loginDiv div, #addLinkDiv div, #updateLinkDiv div, #createDiv div {
@@ -184,6 +207,30 @@ i:hover {
     padding: 1rem 0;
     font-size: 2rem;
     cursor: pointer;
+}
+
+#statDiv {
+    width: 70%;
+    padding: 3rem;
+    margin: 2rem auto;
+    background-color: #647c90;
+    border-radius: 5px;
+    box-shadow: 7px 7px 7px darkgrey;
+}
+
+#statDiv h3 {
+    text-decoration-line: underline;
+    color: #151562;
+    margin-bottom: 2rem;
+}
+
+.total {
+    color: #910a0a;
+}
+
+#canvasDiv {
+    background-color: #e0e0e0;
+    margin-top: 4rem;
 }
 
 @media screen and (max-width: 1000px){

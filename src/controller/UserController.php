@@ -25,9 +25,9 @@ class UserController extends Controller {
         $pass = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
 
         $user = (new UserManager())->searchMail($mail);
-        print_r($user);
         if($user !== null && password_verify($pass, $user->getPassword())) {
             $_SESSION['id'] = $user->getId();
+            $_SESSION['role'] = $user->getRole();
             header("Location: /index.php?error=0");
         }
         else {
@@ -46,7 +46,9 @@ class UserController extends Controller {
 
         $user = new User(null, $lastname, $firstname, $mail, $pass);
         if((new UserManager())->add($user)) {
-            $_SESSION['id'] = Db::getInstance()->lastInsertId();
+            $user = (new UserManager())->search(Db::getInstance()->lastInsertId());
+            $_SESSION['id'] = $user->getId();
+            $_SESSION['role'] = $user->getRole();
             header("Location: /index.php?error=6");
         }
         else {

@@ -1,0 +1,22 @@
+{
+    "name": "amaur/app",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Amaur\\App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Elliacoj",
+            "email": "73291249+Elliacoj@users.noreply.github.com"
+        }
+    ],
+    "require": {
+      "ext-pdo": "*",
+        "muffeen/url-status": "^0.2.0",
+      "ext-json": "*",
+        "phpmailer/phpmailer": "^6.5",
+        "microweber/screen": "^1.0"
+    }
+}

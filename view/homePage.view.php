@@ -1,11 +1,8 @@
 <div id="menu"> <?php
-    if(!isset($_SESSION['id'])) { ?>
-    <div id="buttonProfile"><a href="index.php?controller=user" title="Connexion"><i class="fas fa-sign-in-alt"></i></a></div> <?php
-    }
-    else { ?>
+    if(isset($_SESSION['id'])) { ?>
     <div id="buttonAdd"><i class="fas fa-plus-square"></i></div> <?php
         if(isset($_SESSION['role']) && $_SESSION['role'] === "admin") { ?>
-    <div id="stat"><i class="fas fa-chart-bar"></i></div> <?php
+    <div id="stat"><a href="index.php?controller=home&action=stat"><i class="fas fa-chart-bar"></i></a></div> <?php
         } ?>
     <div id="buttonDisco"><a href="index.php?controller=user&action=logout" title="Déconnexion"><i class="fas fa-portrait"></i></a></div> <?php
     }?>

@@ -11,6 +11,7 @@ HTML {
 body {
     width: 100%;
     font-size: 3rem;
+    background-color: #e2ded0;
 }
 
 #menu {
@@ -19,6 +20,23 @@ body {
     justify-content: space-between;
     margin-top: 3rem;
 }
+
+h1 {
+    font-size: 5rem;
+    text-decoration-line: underline;
+}
+
+h1, h2 {
+    text-align: center;
+    font-style: italic;
+    margin-top: 2rem;
+    color: #4e4f50;
+}
+
+h2 {
+    font-size: 4rem;
+}
+
 #buttonDisco {
     margin-right: 4rem;
 }
@@ -89,11 +107,12 @@ a {
 
 #loginDiv, #addLinkDiv, #updateLinkDiv, #createDiv {
     width: 30%;
-    margin: 10rem auto 0 auto;
+    margin: 7rem auto 0 auto;
     border: 2px solid black;
-    background-color: darkgrey;
+    background-color: #647c90;
     border-radius: 5px;
     box-shadow: 7px 7px 7px darkgrey;
+    color: #121212;
 }
 
 #loginDiv div, #addLinkDiv div, #updateLinkDiv div, #createDiv div {

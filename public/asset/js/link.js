@@ -13,6 +13,7 @@ function modalWindows($data) {
     let $pTitle = document.createElement("p");
     let $buttonConfirm = document.createElement("button");
     let $buttonBack = document.createElement("button");
+    $div.appendChild($pTitle);
 
     if(!$data.target.dataset.delete) {
         let $name = document.createElement("div");
@@ -79,7 +80,6 @@ function modalWindows($data) {
     $buttonConfirm.style.cssText = "width: 20%; margin-left: 28.5%; margin-bottom: 10px;";
     $buttonBack.style.cssText = "width: 20%; margin-left: 5%; margin-bottom: 10px;";
 
-    $div.appendChild($pTitle);
     $div.appendChild($buttonConfirm);
     $div.appendChild($buttonBack);
     document.body.appendChild($div);

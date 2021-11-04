@@ -48,7 +48,7 @@ class LinkManager {
 
         if($stmt->execute() && $result = $stmt->fetchAll()) {
             foreach($result as $link) {
-                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->searchMail($link['user_fk']), $link['img'], $link['click']);
+                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->search($link['user_fk']), $link['img'], $link['click']);
             }
         }
         return $array;
@@ -64,7 +64,7 @@ class LinkManager {
 
         if($stmt->execute() && $result = $stmt->fetchAll()) {
             foreach($result as $link) {
-                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->searchMail($link['user_fk']), $link['img'], $link['click']);
+                $array[] = new Link($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], (new UserManager())->search($link['user_fk']), $link['img'], $link['click']);
             }
         }
         return $array;
@@ -81,7 +81,7 @@ class LinkManager {
         $link = null;
 
         if($stmt->execute() && $result = $stmt->fetch()) {
-                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->searchMail($result['user_fk']), $result['img'], $result['click']);
+                $link = new Link($result['id'], $result['href'], $result['title'], $result['target'], $result['name'], (new UserManager())->search($result['user_fk']), $result['img'], $result['click']);
         }
         return $link;
     }

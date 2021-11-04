@@ -24,13 +24,14 @@ body {
 h1 {
     font-size: 5rem;
     text-decoration-line: underline;
+    margin-bottom: 5rem;
 }
 
 h1, h2 {
     text-align: center;
     font-style: italic;
     margin-top: 2rem;
-    color: #4e4f50;
+    color: #151562;
 }
 
 h2 {
@@ -206,6 +207,30 @@ i:hover {
     padding: 1rem 0;
     font-size: 2rem;
     cursor: pointer;
+}
+
+#statDiv {
+    width: 70%;
+    padding: 3rem;
+    margin: 2rem auto;
+    background-color: #647c90;
+    border-radius: 5px;
+    box-shadow: 7px 7px 7px darkgrey;
+}
+
+#statDiv h3 {
+    text-decoration-line: underline;
+    color: #151562;
+    margin-bottom: 2rem;
+}
+
+.total {
+    color: #910a0a;
+}
+
+#canvasDiv {
+    background-color: #e0e0e0;
+    margin-top: 4rem;
 }
 
 @media screen and (max-width: 1000px){

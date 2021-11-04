@@ -1,3 +1,4 @@
+<h1>Links handler</h1>
 <div id="menu"> <?php
     if(isset($_SESSION['id'])) { ?>
     <div id="buttonAdd"><i class="fas fa-plus-square"></i></div> <?php

@@ -245,6 +245,10 @@ i:hover {
     #contact textarea{
         width: 100%;
     }
+
+    #statDiv {
+        width: 85%;
+    }
 }
 
 @media screen and (max-width: 700px){
@@ -260,5 +264,17 @@ i:hover {
 
     #contact {
         width: 95%;
+    }
+
+    #statDiv {
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    h2 {
+        font-size: 2.5rem;
     }
 }
